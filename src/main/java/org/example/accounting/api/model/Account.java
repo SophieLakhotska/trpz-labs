@@ -18,20 +18,20 @@ public class Account {
   @Column(nullable = false)
   private Long id;
 
-  @Column(name = "name", nullable = false)
+  @Column(name = "name")
   private String name;
 
   @Column(name = "description")
   private String description;
 
-  @Column(name = "balance", nullable = false, precision = 19, scale = 2)
+  @Column(name = "balance", precision = 19, scale = 2)
   private BigDecimal balance;
 
-  @Column(name = "currency_code", nullable = false)
+  @Column(name = "currency_code")
   private Integer currencyCode;
 
-  @ManyToOne(optional = false)
-  @JoinColumn(name = "user_id", nullable = false)
+  @ManyToOne
+  @JoinColumn(name = "user_id")
   private User user;
 
   @OrderBy("timestamp ASC")
@@ -40,5 +40,15 @@ public class Account {
 
   @OneToMany(mappedBy = "account", cascade = CascadeType.ALL, orphanRemoval = true)
   private List<PeriodicTransaction> periodicTransactions = new ArrayList<>();
+
+  public void addTransaction(Transaction transaction) {
+    transactions.add(transaction);
+    transaction.setAccount(this);
+  }
+
+  public void removeTransaction(Transaction transaction) {
+    transactions.remove(transaction);
+    transaction.setAccount(null);
+  }
 
 }
