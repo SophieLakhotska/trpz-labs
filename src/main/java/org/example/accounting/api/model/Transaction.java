@@ -17,28 +17,28 @@ public class Transaction {
   @Column(nullable = false)
   private Long id;
 
-  @Column(name = "name", nullable = false)
+  @Column(name = "name")
   private String name;
 
   @Column(name = "description")
   private String description;
 
-  @Column(name = "amount", nullable = false, precision = 19, scale = 2)
+  @Column(name = "amount", precision = 19, scale = 2)
   private BigDecimal amount;
 
-  @Column(name = "timestamp", nullable = false)
+  @Column(name = "timestamp")
   private Instant timestamp;
 
-  @ManyToOne(optional = false)
-  @JoinColumn(name = "account_id", nullable = false)
+  @ManyToOne
+  @JoinColumn(name = "account_id")
   private Account account;
 
   @ManyToOne
-  @JoinColumn(name = "category_id", nullable = false)
+  @JoinColumn(name = "category_id")
   private Category category;
 
   @Enumerated(EnumType.STRING)
-  @Column(name = "transaction_type", nullable = false)
+  @Column(name = "transaction_type")
   private TransactionTypes transactionType;
 
 }
